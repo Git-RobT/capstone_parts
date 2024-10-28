@@ -53,12 +53,13 @@ class OTPController extends Controller
     private function sendSms($phone, $message)
     {
         // Create Vonage client with your credentials
-        $basic = new Basic("f7bbb140", "5XCGkYf1Orf0OMwK"); // Replace with env() variables for security
+        $basic = new Basic(getenv('VONAGE_API_KEY'), getenv('VONAGE_API_SECRET'));
+        // Replace with env() variables for security
         $client = new Client($basic);
 
         // Send SMS
         $response = $client->sms()->send(
-            new \Vonage\SMS\Message\SMS($phone, 'YourBrand', $message)
+            new \Vonage\SMS\Message\SMS($phone, 'Hapi.bytes(SMS)', $message)
         );
 
         $msg = $response->current();
